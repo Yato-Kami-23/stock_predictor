@@ -14,8 +14,106 @@ from stock_predictor.predict_utils import predict_on_test, forecast_future
 
 st.set_page_config(page_title="Stock Price Predictor", page_icon="📈", layout="wide")
 
-st.title("📈 Stock Price Predictor (LSTM)")
-st.markdown("---")
+# --- Global styles ---
+st.markdown(
+    """
+    <style>
+      :root {
+        --brand-bg: linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #0ea5e9 100%);
+        --card-bg: rgba(255, 255, 255, 0.06);
+        --card-border: rgba(255, 255, 255, 0.12);
+        --accent: #0ea5e9;
+        --success: #10b981;
+        --warning: #f59e0b;
+        --error: #ef4444;
+      }
+
+      /* App hero header */
+      .app-hero {
+        background: var(--brand-bg);
+        padding: 28px 22px;
+        border-radius: 16px;
+        color: #e5f2ff;
+        border: 1px solid var(--card-border);
+        box-shadow: 0 10px 30px rgba(2, 6, 23, 0.4);
+        margin-bottom: 16px;
+      }
+      .app-hero h1 { margin: 0 0 6px 0; font-size: 28px; font-weight: 800; }
+      .app-hero p { margin: 0; opacity: 0.9; }
+
+      /* KPI card styling */
+      .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+      .kpi-card {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 14px;
+        padding: 16px 14px;
+        backdrop-filter: blur(6px);
+      }
+      .kpi-label { font-size: 12px; letter-spacing: .3px; opacity: .85; }
+      .kpi-value { font-size: 22px; font-weight: 800; color: #ffffff; }
+
+      /* Beautify default metrics */
+      div[data-testid="stMetric"] {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 14px;
+        padding: 12px 14px;
+      }
+      div[data-testid="stMetricValue"] { font-weight: 800; }
+
+      /* Buttons */
+      .stButton>button {
+        background: linear-gradient(180deg, #38bdf8 0%, #0ea5e9 100%);
+        color: #0b1220;
+        border: none;
+        font-weight: 700;
+        padding: 10px 14px;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(14, 165, 233, .35);
+      }
+      .stButton>button:hover { filter: brightness(1.05); transform: translateY(-1px); }
+
+      /* Expanders & charts */
+      details {
+        background: rgba(2, 6, 23, .04);
+        border-radius: 12px;
+        border: 1px solid rgba(2, 6, 23, .08);
+      }
+
+      /* Sidebar accent */
+      [data-testid="stSidebar"] {
+        background: linear-gradient(180deg, #0b1220 0%, #0f172a 100%);
+        border-right: 1px solid rgba(255,255,255,.06);
+      }
+      [data-testid="stSidebar"] * { color: #dbeafe !important; }
+
+      /* Subtle hr */
+      .soft-hr { height: 1px; background: rgba(148, 163, 184, .25); margin: 8px 0 16px; }
+
+      /* Footer */
+      .footer {
+        opacity: .75;
+        font-size: 13px;
+        border-top: 1px dashed rgba(148,163,184,.35);
+        padding-top: 10px;
+        margin-top: 18px;
+      }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
+st.markdown(
+    """
+    <div class="app-hero">
+      <h1>📈 Stock Price Predictor (LSTM)</h1>
+      <p>Train an LSTM on historical prices, evaluate performance, and forecast future values — in minutes.</p>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
+st.markdown('<div class="soft-hr"></div>', unsafe_allow_html=True)
 
 # Sidebar for configuration
 with st.sidebar:
@@ -271,6 +369,14 @@ if run_button:
 		progress_bar.empty()
 		
 		st.balloons()
+		st.markdown(
+			"""
+			<div class="footer">
+			  Built with ❤️ using Streamlit, Keras, and yfinance. Tweak parameters from the sidebar and iterate quickly.
+			</div>
+			""",
+			unsafe_allow_html=True,
+		)
 		
 	except Exception as e:
 		st.error(f"❌ Error: {str(e)}")

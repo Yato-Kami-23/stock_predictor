@@ -82,9 +82,14 @@ st.markdown(
       }
 
       /* Sidebar accent */
+      /* Move sidebar to the right */
+      div[data-testid="stAppViewContainer"] > div {
+        flex-direction: row-reverse;
+      }
       [data-testid="stSidebar"] {
         background: linear-gradient(180deg, #0b1220 0%, #0f172a 100%);
-        border-right: 1px solid rgba(255,255,255,.06);
+        border-left: 1px solid rgba(255,255,255,.06);
+        border-right: none;
       }
       [data-testid="stSidebar"] * { color: #dbeafe !important; }
 
